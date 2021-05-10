@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "./assets/css/fontawesome.css";
+import "./assets/css/templatemo-sixteen.css";
+import "./assets/css/owl.css";
+import Header from "./Header";
+import ArticleList from "./ArticleList";
+import Footer from "./Footer";
+import Banner from "./Banner";
+import Article from "./Article";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const client = new ApolloClient({
+  uri: "http://10.91.90.82:8081/cd/api/",
+});
 
+const App = () => (
+  <ApolloProvider client={client}>
+    <Router>
+      <Header></Header>
+      <Banner></Banner>
+      <Switch>
+        <Route path="/article/:id">
+          <Article></Article>
+        </Route>
+        <Route path="/">
+          <ArticleList></ArticleList>
+        </Route>
+      </Switch>
+      <Footer></Footer>
+    </Router>
+  </ApolloProvider>
+);
 export default App;

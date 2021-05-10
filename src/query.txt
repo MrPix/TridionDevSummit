@@ -1,0 +1,88 @@
+{
+  items(filter: {itemTypes: COMPONENT, publicationIds: 1, schema:{id: 49}}) {
+    edges {
+      cursor
+      node {
+        ...ItemFields
+        ...ComponentFields
+      }
+    }
+  }
+}
+
+fragment ItemFields on Item {
+  id
+  itemId
+  itemType
+  namespaceId
+  owningPublicationId
+  publicationId
+  title
+  lastPublishDate
+  creationDate
+  initialPublishDate
+  updatedDate
+  ...CustomMetaFields
+}
+
+ 
+
+fragment ComponentFields on Component {
+  id
+  itemId
+  itemType
+  namespaceId
+  owningPublicationId
+  publicationId
+  title
+  lastPublishDate
+  creationDate
+  initialPublishDate
+  updatedDate
+  schemaId
+  multiMedia
+  content {
+    ... on UntypedContent {
+      data 
+    }
+  }
+  ...CustomMetaFields
+}
+
+ 
+
+fragment CustomMetaFields on Item {
+  customMetas {
+    edges {
+      node {
+        id
+        itemId
+        key
+        namespaceId
+        publicationId
+        value
+        valueType
+      }
+    }
+  }
+}
+ 
+
+ ----
+
+             {
+              items(
+                filter: {
+                  itemTypes: COMPONENT
+                  publicationIds: 1
+                  schema: { id: 49 }
+                }
+              ) {
+                edges {
+                  cursor
+                  node {
+                    itemId
+                  }
+                }
+              }
+            }
